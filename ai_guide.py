@@ -51,7 +51,7 @@ if __name__ == "__main__":
         "make": "Opel",
         "model": "Astra",
         "year": 2015,
-        "engine": "1.3 CDTI"
+        "engine": "1.3 CDTI (A13DTE)"
     }
 
     task = {

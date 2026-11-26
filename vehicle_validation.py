@@ -30,7 +30,7 @@ def list_supported_vehicles():
 if __name__ == "__main__":
     print(
         "Vehicle supported:",
-        validate_vehicle("Opel", "Astra", 2015, "1.3 CDTI")
+        validate_vehicle("Opel", "Astra", 2015, "1.3 CDTI (A13DTE)")
     )
 
     print(

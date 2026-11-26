@@ -2,7 +2,12 @@ from app import app
 import database
 import pytest
 
-def test_home_page():
+def test_home_page(monkeypatch):
+    monkeypatch.setattr(
+        "app.list_supported_vehicles",
+        lambda: []
+    )
+
     client = app.test_client()
 
     response = client.get("/")
@@ -46,7 +51,8 @@ def test_supported_vehicle(monkeypatch):
 
 def test_unsupported_vehicle(monkeypatch):
     monkeypatch.setattr(
-        "app.get_vehicle_id", lambda *args: 1
+        "app.validate_vehicle",
+        lambda *args: False
     )
 
     client = app.test_client()
@@ -207,9 +213,8 @@ def test_unavailable_maintenance_task(monkeypatch, task_id):
 
     monkeypatch.setattr(
         "app.get_vehicle_id",
-        lambda *args: (1,)
+        lambda *args: 1
     )
-
     monkeypatch.setattr(
         "app.list_tasks_for_vehicle",
         lambda *args: [
