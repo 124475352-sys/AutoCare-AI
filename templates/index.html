@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoCare AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>AutoCare AI</h1>
+        <p>Intelligent Vehicle Maintenance Assistant</p>
+    </header>
+
+    <main class="container">
+
+        <h2>Select Your Vehicle</h2>
+        <p>Enter your vehicle details to find available maintenance guides.</p>
+
+        <form action="/check-vehicle" method="POST">
+
+            <label for="make">Make</label>
+<select id="make" name="make" required></select>
+
+<label for="model">Model</label>
+<select id="model" name="model" required></select>
+
+<label for="year">Year</label>
+<select id="year" name="year" required></select>
+
+<label for="engine">Engine</label>
+<select id="engine" name="engine" required></select>
+
+<button type="submit">Check Vehicle</button>
+        </form>
+
+    </main>
+
+    <footer>
+        AutoCare AI | IS3329
+    </footer>
+<script>
+    const vehicles = {{ vehicles | tojson }};
+</script>
+
+<script src="{{ url_for('static', filename='vehicles.js') }}"></script>
+
+</body>
+</html>

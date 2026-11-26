@@ -1,0 +1,168 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #0f172a;
+    color: #f1f5f9;
+}
+
+header {
+    background-color: #1e293b;
+    padding: 25px 40px;
+    border-bottom: 3px solid #3b82f6;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+header p {
+    color: #94a3b8;
+    margin-bottom: 0;
+}
+
+.container {
+    max-width: 650px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #1e293b;
+    border-radius: 12px;
+    border: 1px solid #334155;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #cbd5e1;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    background-color: #0f172a;
+    color: white;
+    border: 1px solid #475569;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+input:focus, select:focus {
+    outline: 2px solid #3b82f6;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1d4ed8;
+}
+
+a {
+    color: #60a5fa;
+}
+
+footer {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 13px;
+    padding: 20px;
+}
+
+.success-message {
+    background-color: #064e3b;
+    color: #6ee7b7;
+    border: 1px solid #059669;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #334155;
+    margin: 25px 0;
+}
+
+.guide-container {
+    max-width: 850px;
+}
+
+.vehicle-info {
+    background-color: #0f172a;
+    border-left: 4px solid #3b82f6;
+    padding: 15px 20px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+}
+
+.vehicle-info h3 {
+    margin: 0;
+}
+
+.vehicle-info p {
+    color: #94a3b8;
+    margin-bottom: 0;
+}
+
+.warning-message {
+    background-color: #422006;
+    color: #fde68a;
+    border: 1px solid #a16207;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.guide-content {
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    padding: 25px;
+    border-radius: 8px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    line-height: 1.8;
+}
+
+.spec-card {
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-left: 4px solid #10b981;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.spec-card h4 {
+    margin: 0;
+    color: #cbd5e1;
+}
+
+.spec-value {
+    font-size: 26px;
+    font-weight: bold;
+    color: #6ee7b7;
+    margin: 12px 0;
+}
+
+.spec-card small {
+    color: #94a3b8;
+}

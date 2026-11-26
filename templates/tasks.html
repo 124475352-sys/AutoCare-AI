@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoCare AI | Maintenance Tasks</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>AutoCare AI</h1>
+        <p>Intelligent Vehicle Maintenance Assistant</p>
+    </header>
+
+    <main class="container">
+
+        <div class="success-message">
+            Vehicle successfully validated
+        </div>
+
+        <h2>{{ make }} {{ model }}</h2>
+        <p>{{ year }} | {{ engine }}</p>
+
+        <hr>
+
+        <h3>Select a Maintenance Task</h3>
+
+        <form action="/maintenance-guide" method="POST">
+
+            <input type="hidden" name="make" value="{{ make }}">
+            <input type="hidden" name="model" value="{{ model }}">
+            <input type="hidden" name="year" value="{{ year }}">
+            <input type="hidden" name="engine" value="{{ engine }}">
+
+            <select name="task_id" required>
+                {% for task in tasks %}
+                    <option value="{{ task.id }}">
+                        {{ task.name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Get Maintenance Guide</button>
+
+        </form>
+
+        <br>
+        <a href="/">Change Vehicle</a>
+
+    </main>
+
+    <footer>
+        AutoCare AI | IS3329 University Project
+    </footer>
+
+</body>
+</html>

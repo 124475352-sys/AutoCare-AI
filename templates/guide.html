@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoCare AI | Maintenance Guide</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>AutoCare AI</h1>
+        <p>Intelligent Vehicle Maintenance Assistant</p>
+    </header>
+
+    <main class="container guide-container">
+
+        <h2>Maintenance Guide</h2>
+
+        <div class="vehicle-info">
+            <h3>{{ make }} {{ model }}</h3>
+            <p>{{ year }} | {{ engine }}</p>
+        </div>
+
+        <h3>{{ task_name }}</h3>
+
+        <div class="warning-message">
+            Prototype mode: This guide uses a mocked AI component.
+            Always consult the official vehicle service manual.
+        </div>
+
+        <h3>Verified Technical Specifications</h3>
+
+{% if specifications %}
+
+    {% for spec in specifications %}
+        <div class="spec-card">
+            <h4>{{ spec.name }}</h4>
+
+            <p class="spec-value">
+                {{ spec.value }} {{ spec.unit or '' }}
+            </p>
+
+            <small>Source: {{ spec.source }}</small>
+        </div>
+    {% endfor %}
+
+{% else %}
+
+    <div class="warning-message">
+        Verified technical specifications are currently
+        unavailable for this vehicle and maintenance task.
+        Consult the official vehicle service manual.
+    </div>
+
+{% endif %}
+
+<h3>AI Maintenance Explanation</h3>
+
+<div class="guide-content">{{ guide }}</div>
+
+        <hr>
+
+        <a href="/">Select Another Vehicle</a>
+
+    </main>
+
+    <footer>
+        AutoCare AI | IS3329 University Project
+    </footer>
+
+</body>
+</html>
