@@ -100,7 +100,32 @@ http://127.0.0.1:5000
 python -m pytest -v
 ```
 
-At the Deliverable 2 development stage, all 14 automated tests passed.
+At the Deliverable 2 development stage, all 48 automated
+tests passed, achieving 87% statement coverage across
+the five core Python modules.
+
+The Flask application component achieved 98% coverage.
+
+### Code Coverage
+
+To generate a detailed coverage report:
+
+```bash
+python -m pytest --cov=app --cov=database --cov=vehicle_validation --cov=maintenance_data --cov=ai_guide --cov-report=term-missing
+```
+
+| Component | Coverage |
+|---|---:|
+| Application | 98% |
+| Database | 87% |
+| Vehicle validation | 81% |
+| AI guide | 74% |
+| Maintenance data | 72% |
+| Overall | 87% |
+
+Database initialisation and application startup were also
+tested manually using a fresh installation from GitHub.
+
 
 ## Supported Vehicle
 

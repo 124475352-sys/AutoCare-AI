@@ -172,3 +172,134 @@ def test_invalid_maintenance_task_id(invalid_task):
     })
 
     assert response.status_code == 400
+
+
+def test_unsupported_vehicle_guide(monkeypatch):
+    monkeypatch.setattr(
+        "app.validate_vehicle",
+        lambda *args: False
+    )
+
+    client = app.test_client()
+
+    response = client.post("/maintenance-guide", data={
+        "make": "BMW",
+        "model": "320d",
+        "year": "2020",
+        "engine": "2.0 Diesel",
+        "task_id": "1"
+    })
+
+    assert response.status_code == 400
+    assert b"Vehicle not supported" in response.data
+
+
+@pytest.mark.parametrize("task_id", [
+    "999",
+    "-1",
+    "0"
+])
+def test_unavailable_maintenance_task(monkeypatch, task_id):
+    monkeypatch.setattr(
+        "app.validate_vehicle",
+        lambda *args: True
+    )
+
+    monkeypatch.setattr(
+        "app.get_vehicle_id",
+        lambda *args: (1,)
+    )
+
+    monkeypatch.setattr(
+        "app.list_tasks_for_vehicle",
+        lambda *args: [
+            {
+                "id": 1,
+                "name": "Engine Oil Change",
+                "description": "Replace engine oil"
+            }
+        ]
+    )
+
+    client = app.test_client()
+
+    response = client.post("/maintenance-guide", data={
+        "make": "Opel",
+        "model": "Astra",
+        "year": "2015",
+        "engine": "1.3 CDTI (A13DTE)",
+        "task_id": task_id
+    })
+
+    assert response.status_code == 404
+
+
+def test_vehicle_id_not_found(monkeypatch):
+    monkeypatch.setattr(
+        "app.validate_vehicle", lambda *args: True
+    )
+
+    monkeypatch.setattr(
+        "app.get_vehicle_id", lambda *args: None
+    )
+
+    client = app.test_client()
+
+    response = client.post("/check-vehicle", data={
+        "make": "Opel",
+        "model": "Astra",
+        "year": "2015",
+        "engine": "1.3 CDTI (A13DTE)"
+    })
+
+    assert response.status_code == 400
+    assert b"Vehicle not supported" in response.data
+
+
+def test_vehicle_has_no_maintenance_tasks(monkeypatch):
+    monkeypatch.setattr(
+        "app.validate_vehicle", lambda *args: True
+    )
+
+    monkeypatch.setattr(
+        "app.get_vehicle_id", lambda *args: 1
+    )
+
+    monkeypatch.setattr(
+        "app.list_tasks_for_vehicle", lambda *args: []
+    )
+
+    client = app.test_client()
+
+    response = client.post("/check-vehicle", data={
+        "make": "Opel",
+        "model": "Astra",
+        "year": "2015",
+        "engine": "1.3 CDTI (A13DTE)"
+    })
+
+    assert response.status_code == 200
+    assert b"No maintenance tasks available" in response.data
+
+
+def test_guide_vehicle_id_not_found(monkeypatch):
+    monkeypatch.setattr(
+        "app.validate_vehicle", lambda *args: True
+    )
+
+    monkeypatch.setattr(
+        "app.get_vehicle_id", lambda *args: None
+    )
+
+    client = app.test_client()
+
+    response = client.post("/maintenance-guide", data={
+        "make": "Opel",
+        "model": "Astra",
+        "year": "2015",
+        "engine": "1.3 CDTI (A13DTE)",
+        "task_id": "1"
+    })
+
+    assert response.status_code == 400
+    assert b"Vehicle not supported" in response.data
