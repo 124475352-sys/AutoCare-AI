@@ -1,5 +1,6 @@
 from app import app
 import database
+import pytest
 
 def test_home_page():
     client = app.test_client()
@@ -130,3 +131,44 @@ def test_complete_maintenance_journey(tmp_path, monkeypatch):
     assert b"Synthetic Verified Specification" in response.data
     assert b"Synthetic Unverified Specification" not in response.data
     assert b"Maintenance Overview" in response.data
+
+
+@pytest.mark.parametrize("invalid_year", [
+    "abc",
+    "",
+    "2015.5",
+    "unknown",
+    "!"
+])
+def test_invalid_vehicle_year(invalid_year):
+    client = app.test_client()
+
+    response = client.post("/check-vehicle", data={
+        "make": "Opel",
+        "model": "Astra",
+        "year": invalid_year,
+        "engine": "1.3 CDTI (A13DTE)"
+    })
+
+    assert response.status_code == 400
+
+
+@pytest.mark.parametrize("invalid_task", [
+    "abc",
+    "",
+    "1.5",
+    "unknown",
+    "!"
+])
+def test_invalid_maintenance_task_id(invalid_task):
+    client = app.test_client()
+
+    response = client.post("/maintenance-guide", data={
+        "make": "Opel",
+        "model": "Astra",
+        "year": "2015",
+        "engine": "1.3 CDTI (A13DTE)",
+        "task_id": invalid_task
+    })
+
+    assert response.status_code == 400
